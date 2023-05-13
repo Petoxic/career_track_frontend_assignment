@@ -1,10 +1,14 @@
 const color = {
-  primary: '#5db85b',
-  white: '#ffffff'
-}
+  primary: "#5db85b",
+  white: "#ffffff",
+  gray: {
+    light: "#f2f2f2",
+    dark: "#808080",
+  },
+};
 
 const theme = {
-  color
-}
+  color,
+};
 
-export default theme
+export default theme;
