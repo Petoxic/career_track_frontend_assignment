@@ -2,7 +2,8 @@ import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import Article from "./Article";
-import ArticleList from "./ArticleList";
+import ArticleList from "./Articles/ArticleList";
+// import ArticleList from "./ArticleList";
 import Editor from "./Editor";
 import LoginRegister from "./LoginRegister";
 import Logout from "./Logout";
