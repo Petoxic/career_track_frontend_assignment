@@ -39,6 +39,6 @@ const StyledAppBar = styled(AppBar)`
   top: auto;
   bottom: 0;
   background-color: ${theme.color.gray.light};
-  padding: 15px 5%;
+  padding: 15px 10%;
   gap: 10px;
 `;
