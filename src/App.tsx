@@ -10,11 +10,13 @@ import Logout from "./Logout";
 import Profile from "./Profile";
 import Settings from "./Settings";
 import Footer from "common/Footer";
+import Header from "common/Header";
 
 function App() {
   return (
-    <>
-      <Router>
+    <Router>
+      <div>
+        <Header />
         <Switch>
           <Route path="/editor" exact component={Editor} />
           <Route path="/editor/:slug" exact component={Editor} />
@@ -31,9 +33,9 @@ function App() {
           <Route path="/:slug" exact component={Article} />
           <Route path="/" component={ArticleList} />
         </Switch>
-      </Router>
-      <Footer />
-    </>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
