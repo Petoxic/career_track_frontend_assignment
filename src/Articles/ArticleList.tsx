@@ -4,11 +4,13 @@ import { AppBar, Link, Typography } from "@mui/material";
 
 import theme from "theme/theme";
 import HomePageBanner from "./HomePageBanner";
+import PopularTags from "./PopularTags";
 
 const ArticleList: React.FC<{}> = () => {
   return (
     <>
       <HomePageBanner />
+      <PopularTags/>
     </>
   );
 };
