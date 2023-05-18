@@ -4,7 +4,8 @@ const color = {
   black: "#000000",
   gray: {
     light: "#f2f2f2",
-    dark: "#808080",
+    medium: "#808080",
+    dark: "#818a91",
   },
 };
 

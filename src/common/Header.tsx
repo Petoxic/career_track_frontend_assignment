@@ -34,7 +34,7 @@ const NavigateButtons = (
       href="/#/editor"
       underline="none"
       variant="subtitle1"
-      sx={{ color: theme.color.gray.dark }}
+      sx={{ color: theme.color.gray.medium }}
     >
       <TextWithIcon>
         <EditNoteIcon />
@@ -46,7 +46,7 @@ const NavigateButtons = (
       href="/#/settings"
       underline="none"
       variant="subtitle1"
-      sx={{ color: theme.color.gray.dark }}
+      sx={{ color: theme.color.gray.medium }}
     >
       <TextWithIcon>
         <SettingsIcon />
@@ -58,7 +58,7 @@ const NavigateButtons = (
       href="/#/login"
       underline="none"
       variant="subtitle1"
-      sx={{ color: theme.color.gray.dark }}
+      sx={{ color: theme.color.gray.medium }}
     >
       Sign in
     </Link>
@@ -67,7 +67,7 @@ const NavigateButtons = (
       href="/#/register"
       underline="none"
       variant="subtitle1"
-      sx={{ color: theme.color.gray.dark }}
+      sx={{ color: theme.color.gray.medium }}
     >
       Sign up
     </Link>

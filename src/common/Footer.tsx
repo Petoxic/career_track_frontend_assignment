@@ -15,7 +15,7 @@ const Footer: React.FC<{}> = () => {
         conduit
       </Link>
 
-      <Typography variant="subtitle1" sx={{ color: theme.color.gray.dark }}>
+      <Typography variant="subtitle1" sx={{ color: theme.color.gray.medium }}>
         An interactive learning project from{" "}
         <Link
           href="https://thinkster.io"
