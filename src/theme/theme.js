@@ -1,5 +1,6 @@
 const color = {
   primary: "#5db85b",
+  primary_hover: "#3d8b3d",
   white: "#ffffff",
   black: "#000000",
   gray: {
