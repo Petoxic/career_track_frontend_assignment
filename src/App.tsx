@@ -14,6 +14,7 @@ import Footer from "common/Footer";
 import Header from "common/Header";
 import NewArticle from "NewArticle/NewArticle";
 import Login from "AccountManaging/Login";
+import Register from "AccountManaging/Register";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
             exact
             component={Profile}
           />
-          <Route path="/register" exact component={LoginRegister} />
+          <Route path="/register" exact component={Register} />
           <Route path="/settings" exact component={Settings} />
           <Route path="/:slug" exact component={Article} />
           <Route path="/" component={ArticleList} />
