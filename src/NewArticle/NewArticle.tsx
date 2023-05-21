@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Button, OutlinedInput } from "@mui/material";
 
 import theme from "theme/theme";
-import { Button, OutlinedInput } from "@mui/material";
 
 const NewArticle: React.FC<{}> = () => {
   return (
@@ -17,7 +17,11 @@ const NewArticle: React.FC<{}> = () => {
           rows={6}
         />
         {/* TODO: add tags */}
-        <StyledButton type="submit" variant="contained" sx={{ alignSelf: "flex-end" }}>
+        <StyledButton
+          type="submit"
+          variant="contained"
+          sx={{ alignSelf: "flex-end" }}
+        >
           Publish Article
         </StyledButton>
       </InputContainer>
