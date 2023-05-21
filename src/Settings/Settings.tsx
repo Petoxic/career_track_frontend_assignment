@@ -1,32 +1,43 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Button, OutlinedInput } from "@mui/material";
+import { Button, OutlinedInput, Typography } from "@mui/material";
 
 import theme from "theme/theme";
 
 const Settings: React.FC<{}> = () => {
   return (
-    <StyledForm onSubmit={() => console.log("submit!")}>
-      <InputContainer>
-        <StyledInput placeholder="URL of profile picture" />
-        <StyledInput placeholder="Your name" />
-        <StyledInput placeholder="Short bio about you" />
-        <StyledInput placeholder="Email" />
-        <StyledInput placeholder="Password" />
+    <ContentContainer>
+      <Typography variant="h4">User Settings</Typography>
+      <StyledForm onSubmit={() => console.log("submit!")}>
+        <InputContainer>
+          <StyledInput placeholder="URL of profile picture" />
+          <StyledInput placeholder="Your name" />
+          <StyledInput placeholder="Short bio about you" />
+          <StyledInput placeholder="Email" />
+          <StyledInput placeholder="Password" />
 
-        <StyledButton
-          type="submit"
-          variant="contained"
-          sx={{ alignSelf: "flex-end" }}
-        >
-          Update Settings
-        </StyledButton>
-      </InputContainer>
-    </StyledForm>
+          <StyledButton
+            type="submit"
+            variant="contained"
+            sx={{ alignSelf: "flex-end" }}
+          >
+            Update Settings
+          </StyledButton>
+        </InputContainer>
+      </StyledForm>
+    </ContentContainer>
   );
 };
 
 export default Settings;
+
+const ContentContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+`
 
 const StyledForm = styled("form")`
   width: 100%;
@@ -43,7 +54,6 @@ const InputContainer = styled("div")`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-top: 5%;
 `;
 
 const StyledInput = styled(OutlinedInput)`
