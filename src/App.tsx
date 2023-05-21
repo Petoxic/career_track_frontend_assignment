@@ -13,6 +13,7 @@ import Settings from "Settings/Settings";
 import Footer from "common/Footer";
 import Header from "common/Header";
 import NewArticle from "NewArticle/NewArticle";
+import Login from "AccountManaging/Login";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           {/* <Route path="/editor" exact component={Editor} /> */}
           <Route path="/editor" exact component={NewArticle} />
           <Route path="/editor/:slug" exact component={Editor} />
-          <Route path="/login" exact component={LoginRegister} />
+          <Route path="/login" exact component={Login} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/profile/:username" exact component={Profile} />
           <Route
