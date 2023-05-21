@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import theme from "theme/theme";
+import theme from "utils/theme";
 import { Typography } from "@mui/material";
 import Tag from "./Tag";
 

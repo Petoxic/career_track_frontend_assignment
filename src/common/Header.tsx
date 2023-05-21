@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { AppBar, Link } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
-import theme from "theme/theme";
+import theme from "utils/theme";
 
 const TextWithIcon = styled("div")`
   display: flex;
