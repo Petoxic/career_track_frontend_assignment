@@ -1,17 +1,29 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import theme from "utils/theme";
 import { Button, Link, OutlinedInput, Typography } from "@mui/material";
 
+import theme from "utils/theme";
+import api from "utils/api";
+
 const Login: React.FC<{}> = () => {
+  const loginHandler = async (event: any) => {
+    event.preventDefault();
+    const email: string = event.target[0].value;
+    const password: string = event.target[2].value;
+    const user = { email, password };
+    const res = await api.post("http://localhost:3001/api/users/login", {
+      user,
+    });
+    console.log(res);
+  };
+
   return (
     <ContentContainer>
       <Typography variant="h4">Sign In</Typography>
-      <StyledForm onSubmit={() => console.log("submit!")}>
+      <StyledForm onSubmit={loginHandler}>
         <InputContainer>
-          <StyledInput placeholder="Email" />
-          <StyledInput placeholder="Password" />
+          <StyledInput id="email" placeholder="Email" />
+          <StyledInput id="password" placeholder="Password" type="password" />
           <StyledButton
             type="submit"
             variant="contained"

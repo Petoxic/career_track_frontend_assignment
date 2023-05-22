@@ -1,18 +1,29 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import theme from "utils/theme";
 import { Button, Link, OutlinedInput, Typography } from "@mui/material";
 
+import theme from "utils/theme";
+import api from "utils/api";
+
 const Register: React.FC<{}> = () => {
+  const registerHandler = async (event: any) => {
+    event.preventDefault();
+    const username: string = event.target[0].value;
+    const email: string = event.target[2].value;
+    const password: string = event.target[4].value;
+    const user = { username, email, password };
+    const res = await api.post("http://localhost:3001/api/users", { user });
+    console.log(res);
+  };
+
   return (
     <ContentContainer>
       <Typography variant="h4">Sign Up</Typography>
-      <StyledForm onSubmit={() => console.log("submit!")}>
+      <StyledForm onSubmit={registerHandler}>
         <InputContainer>
-          <StyledInput placeholder="Your name" />
-          <StyledInput placeholder="Email" />
-          <StyledInput placeholder="Password" />
+          <StyledInput id="name" placeholder="Your name" />
+          <StyledInput id="email" placeholder="Email" />
+          <StyledInput id="password" placeholder="Password" type="password" />
           <StyledButton
             type="submit"
             variant="contained"
