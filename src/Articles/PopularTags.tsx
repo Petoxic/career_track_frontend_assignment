@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import theme from "utils/theme";
 import { Typography } from "@mui/material";
+
+import theme from "utils/theme";
 import Tag from "./Tag";
+import api from "utils/api";
 
 const PopularTags: React.FC<{}> = () => {
+  const [tags, setTags] = useState([]);
+
+  const getTags = async () => {
+    const res = await api.get("http://localhost:3001/api/tags");
+    setTags(res.data.tags);
+  };
+  
+  useEffect(() => {
+    getTags();
+  }, []);
+
   return (
     <ContentContainer>
       <Typography variant="subtitle1">Popular Tags</Typography>
-
       <TagsContainer>
-        <Tag name="React" />
-        <Tag name="Programming" />
-        <Tag name="Javascript" />
-        <Tag name="angularjs" />
-        <Tag name="node" />
-        <Tag name="rails" />
+        {tags.map((tag) => (
+          <Tag name={tag} />
+        ))}
       </TagsContainer>
     </ContentContainer>
   );
