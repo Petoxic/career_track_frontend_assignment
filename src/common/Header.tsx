@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { AppBar, Button, Link } from "@mui/material";
+import { AppBar, Avatar, Button, Link, Typography } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
 import theme from "utils/theme";
+import users from "api/userAndAuth";
 
 const TextWithIcon = styled("div")`
   display: flex;
@@ -17,6 +18,15 @@ const LinksContainer = styled("div")`
   flex-direction: row;
   align-items: flex-end;
   gap: 10px;
+`;
+
+const LogoutButton = styled(Button)`
+  color: ${theme.color.primary};
+  padding: 0;
+  padding-bottom: 1px;
+  &:hover {
+    color: ${theme.color.primary_hover};
+  }
 `;
 
 const GuestNavigateButtons = (
@@ -41,9 +51,11 @@ const GuestNavigateButtons = (
   </LinksContainer>
 );
 
-const UserNavigateButtons: React.FC<{ logoutHandler: () => void }> = ({
-  logoutHandler,
-}) => {
+const UserNavigateButtons: React.FC<{
+  logoutHandler: () => void;
+  username: string | undefined;
+  imageUrl: string | undefined;
+}> = ({ logoutHandler, username, imageUrl }) => {
   return (
     <LinksContainer>
       <Link
@@ -79,7 +91,16 @@ const UserNavigateButtons: React.FC<{ logoutHandler: () => void }> = ({
         </TextWithIcon>
       </Link>
 
-      <Button onClick={logoutHandler}>Log out</Button>
+      <Avatar
+        alt={username}
+        src={imageUrl}
+        sx={{ width: "1.2em", height: "1.2em", marginBottom: "3px" }}
+      />
+      <Typography variant="subtitle1" color={theme.color.gray.medium}>
+        {username}
+      </Typography>
+
+      <LogoutButton onClick={logoutHandler}>Log out</LogoutButton>
     </LinksContainer>
   );
 };
@@ -88,10 +109,27 @@ const Header: React.FC<{
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ isLogin, setIsLogin }) => {
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+
+  const getUsername = async () => {
+    const res = await users.getCurrentUser();
+    if (res) {
+      setUsername(res.username);
+      setImageUrl(res.imageUrl);
+    }
+  };
+
   const logoutHandler = () => {
     sessionStorage.removeItem("token");
     setIsLogin(false);
+    setUsername(undefined);
+    setImageUrl(undefined);
   };
+
+  useEffect(() => {
+    getUsername();
+  }, [isLogin]);
 
   return (
     <StyledAppBar position="sticky">
@@ -105,7 +143,11 @@ const Header: React.FC<{
       </Link>
 
       {isLogin ? (
-        <UserNavigateButtons logoutHandler={logoutHandler} />
+        <UserNavigateButtons
+          logoutHandler={logoutHandler}
+          username={username}
+          imageUrl={imageUrl}
+        />
       ) : (
         GuestNavigateButtons
       )}

@@ -30,9 +30,19 @@ const registerUser = async (
   }
 };
 
+const getCurrentUser = async () => {
+  try {
+    const res = await api.get("http://localhost:3001/api/user");
+    return { username: res.data.user.username, imageUrl: res.data.user.image };
+  } catch (error) {
+    return false;
+  }
+};
+
 const users = {
   loginUser,
   registerUser,
+  getCurrentUser,
 };
 
 export default users;
