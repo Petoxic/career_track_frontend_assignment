@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import Article from "./Article";
@@ -17,15 +17,21 @@ import Login from "AccountManaging/Login";
 import Register from "AccountManaging/Register";
 
 function App() {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+
   return (
     <Router>
       <div>
-        <Header />
+        <Header isLogin={isLogin} setIsLogin={setIsLogin} />
         <Switch>
           {/* <Route path="/editor" exact component={Editor} /> */}
           <Route path="/editor" exact component={NewArticle} />
           <Route path="/editor/:slug" exact component={Editor} />
-          <Route path="/login" exact component={Login} />
+          <Route
+            path="/login"
+            exact
+            component={() => <Login setIsLogin={setIsLogin} />}
+          />
           <Route path="/logout" exact component={Logout} />
           <Route path="/profile/:username" exact component={Profile} />
           <Route

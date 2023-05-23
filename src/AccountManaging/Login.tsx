@@ -5,7 +5,9 @@ import { Button, Link, OutlinedInput, Typography } from "@mui/material";
 import theme from "utils/theme";
 import api from "utils/api";
 
-const Login: React.FC<{}> = () => {
+const Login: React.FC<{
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setIsLogin }) => {
   const loginHandler = async (event: any) => {
     event.preventDefault();
     const email: string = event.target[0].value;
@@ -14,7 +16,8 @@ const Login: React.FC<{}> = () => {
     const res = await api.post("http://localhost:3001/api/users/login", {
       user,
     });
-    console.log(res);
+    sessionStorage.setItem("token", res.data.user.token);
+    setIsLogin(true);
   };
 
   return (
