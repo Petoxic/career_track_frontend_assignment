@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Tab, Tabs } from "@mui/material";
 
-import theme from "theme/theme";
+import theme from "utils/theme";
 
 const Feeds: React.FC<{}> = () => {
   const [isYourFeed, setIsYourFeed] = useState<boolean>(false);

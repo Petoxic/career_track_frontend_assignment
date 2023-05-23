@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Button, OutlinedInput, Typography } from "@mui/material";
 
-import theme from "theme/theme";
+import theme from "utils/theme";
 
 const NewArticle: React.FC<{}> = () => {
   return (

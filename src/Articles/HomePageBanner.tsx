@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import theme from "theme/theme";
+import theme from "utils/theme";
 
 const HomePageBanner: React.FC<{}> = () => {
   return (

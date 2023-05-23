@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import theme from "theme/theme";
 import { Typography } from "@mui/material";
+
+import theme from "utils/theme";
 import Tag from "./Tag";
+import tags from "api/tags";
 
 const PopularTags: React.FC<{}> = () => {
+  const [tagsList, setTagsList] = useState([]);
+
+  const getTagsList = async () => {
+    const res = await tags.getTags();
+    if (res) {
+      setTagsList(res);
+    }
+  };
+
+  useEffect(() => {
+    getTagsList();
+  }, []);
+
   return (
     <ContentContainer>
       <Typography variant="subtitle1">Popular Tags</Typography>
-
       <TagsContainer>
-        <Tag name="React" />
-        <Tag name="Programming" />
-        <Tag name="Javascript" />
-        <Tag name="angularjs" />
-        <Tag name="node" />
-        <Tag name="rails" />
+        {tagsList.map((tag) => (
+          <Tag name={tag} />
+        ))}
       </TagsContainer>
     </ContentContainer>
   );

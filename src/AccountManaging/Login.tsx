@@ -1,17 +1,34 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import theme from "theme/theme";
 import { Button, Link, OutlinedInput, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
-const Login: React.FC<{}> = () => {
+import theme from "utils/theme";
+import users from "api/userAndAuth";
+
+const Login: React.FC<{
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setIsLogin }) => {
+  const history = useHistory();
+
+  const loginHandler = async (event: any) => {
+    event.preventDefault();
+    const email: string = event.target[0].value;
+    const password: string = event.target[2].value;
+    const res = await users.loginUser(email, password);
+    setIsLogin(res);
+    if (res) {
+      history.push("/");
+    }
+  };
+
   return (
     <ContentContainer>
       <Typography variant="h4">Sign In</Typography>
-      <StyledForm onSubmit={() => console.log("submit!")}>
+      <StyledForm onSubmit={loginHandler}>
         <InputContainer>
-          <StyledInput placeholder="Email" />
-          <StyledInput placeholder="Password" />
+          <StyledInput id="email" placeholder="Email" />
+          <StyledInput id="password" placeholder="Password" type="password" />
           <StyledButton
             type="submit"
             variant="contained"

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { AppBar, Link } from "@mui/material";
+import { AppBar, Avatar, Button, Link, Typography } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
-import theme from "theme/theme";
+import theme from "utils/theme";
+import users from "api/userAndAuth";
 
 const TextWithIcon = styled("div")`
   display: flex;
@@ -12,48 +13,24 @@ const TextWithIcon = styled("div")`
   gap: 2px;
 `;
 
-const NavigateButtons = (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      gap: 10,
-      alignItems: "flex-end",
-    }}
-  >
-    <Link
-      href="/#"
-      underline="none"
-      variant="subtitle1"
-      sx={{ color: theme.color.black }}
-    >
-      Home
-    </Link>
+const LinksContainer = styled("div")`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+`;
 
-    <Link
-      href="/#/editor"
-      underline="none"
-      variant="subtitle1"
-      sx={{ color: theme.color.gray.medium }}
-    >
-      <TextWithIcon>
-        <EditNoteIcon />
-        New Article
-      </TextWithIcon>
-    </Link>
+const LogoutButton = styled(Button)`
+  color: ${theme.color.primary};
+  padding: 0;
+  padding-bottom: 1px;
+  &:hover {
+    color: ${theme.color.primary_hover};
+  }
+`;
 
-    <Link
-      href="/#/settings"
-      underline="none"
-      variant="subtitle1"
-      sx={{ color: theme.color.gray.medium }}
-    >
-      <TextWithIcon>
-        <SettingsIcon />
-        Settings
-      </TextWithIcon>
-    </Link>
-
+const GuestNavigateButtons = (
+  <LinksContainer>
     <Link
       href="/#/login"
       underline="none"
@@ -71,10 +48,89 @@ const NavigateButtons = (
     >
       Sign up
     </Link>
-  </div>
+  </LinksContainer>
 );
 
-const Header: React.FC<{}> = () => {
+const UserNavigateButtons: React.FC<{
+  logoutHandler: () => void;
+  username: string | undefined;
+  imageUrl: string | undefined;
+}> = ({ logoutHandler, username, imageUrl }) => {
+  return (
+    <LinksContainer>
+      <Link
+        href="/#"
+        underline="none"
+        variant="subtitle1"
+        sx={{ color: theme.color.black }}
+      >
+        Home
+      </Link>
+
+      <Link
+        href="/#/editor"
+        underline="none"
+        variant="subtitle1"
+        sx={{ color: theme.color.gray.medium }}
+      >
+        <TextWithIcon>
+          <EditNoteIcon />
+          New Article
+        </TextWithIcon>
+      </Link>
+
+      <Link
+        href="/#/settings"
+        underline="none"
+        variant="subtitle1"
+        sx={{ color: theme.color.gray.medium }}
+      >
+        <TextWithIcon>
+          <SettingsIcon />
+          Settings
+        </TextWithIcon>
+      </Link>
+
+      <Avatar
+        alt={username}
+        src={imageUrl}
+        sx={{ width: "1.2em", height: "1.2em", marginBottom: "3px" }}
+      />
+      <Typography variant="subtitle1" color={theme.color.gray.medium}>
+        {username}
+      </Typography>
+
+      <LogoutButton onClick={logoutHandler}>Log out</LogoutButton>
+    </LinksContainer>
+  );
+};
+
+const Header: React.FC<{
+  isLogin: boolean;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ isLogin, setIsLogin }) => {
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+
+  const getUsername = async () => {
+    const res = await users.getCurrentUser();
+    if (res) {
+      setUsername(res.username);
+      setImageUrl(res.imageUrl);
+    }
+  };
+
+  const logoutHandler = () => {
+    sessionStorage.removeItem("token");
+    setIsLogin(false);
+    setUsername(undefined);
+    setImageUrl(undefined);
+  };
+
+  useEffect(() => {
+    getUsername();
+  }, [isLogin]);
+
   return (
     <StyledAppBar position="sticky">
       <Link
@@ -86,7 +142,15 @@ const Header: React.FC<{}> = () => {
         conduit
       </Link>
 
-      {NavigateButtons}
+      {isLogin ? (
+        <UserNavigateButtons
+          logoutHandler={logoutHandler}
+          username={username}
+          imageUrl={imageUrl}
+        />
+      ) : (
+        GuestNavigateButtons
+      )}
     </StyledAppBar>
   );
 };
