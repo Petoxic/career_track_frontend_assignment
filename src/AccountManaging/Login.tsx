@@ -1,23 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button, Link, OutlinedInput, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 import theme from "utils/theme";
-import api from "utils/api";
+import users from "api/userAndAuth";
 
 const Login: React.FC<{
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setIsLogin }) => {
+  const history = useHistory();
+
   const loginHandler = async (event: any) => {
     event.preventDefault();
     const email: string = event.target[0].value;
     const password: string = event.target[2].value;
-    const user = { email, password };
-    const res = await api.post("http://localhost:3001/api/users/login", {
-      user,
-    });
-    sessionStorage.setItem("token", res.data.user.token);
-    setIsLogin(true);
+    const res = await users.loginUser(email, password);
+    setIsLogin(res);
+    if (res) {
+      history.push("/");
+    }
   };
 
   return (

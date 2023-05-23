@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { AppBar, Button, Link } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -12,8 +12,15 @@ const TextWithIcon = styled("div")`
   gap: 2px;
 `;
 
+const LinksContainer = styled("div")`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+`;
+
 const GuestNavigateButtons = (
-  <div>
+  <LinksContainer>
     <Link
       href="/#/login"
       underline="none"
@@ -31,21 +38,14 @@ const GuestNavigateButtons = (
     >
       Sign up
     </Link>
-  </div>
+  </LinksContainer>
 );
 
 const UserNavigateButtons: React.FC<{ logoutHandler: () => void }> = ({
   logoutHandler,
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        gap: 10,
-        alignItems: "flex-end",
-      }}
-    >
+    <LinksContainer>
       <Link
         href="/#"
         underline="none"
@@ -80,7 +80,7 @@ const UserNavigateButtons: React.FC<{ logoutHandler: () => void }> = ({
       </Link>
 
       <Button onClick={logoutHandler}>Log out</Button>
-    </div>
+    </LinksContainer>
   );
 };
 

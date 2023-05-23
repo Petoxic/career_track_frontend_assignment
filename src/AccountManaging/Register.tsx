@@ -1,19 +1,23 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button, Link, OutlinedInput, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 import theme from "utils/theme";
-import api from "utils/api";
+import users from "api/userAndAuth";
 
 const Register: React.FC<{}> = () => {
+  const history = useHistory();
+
   const registerHandler = async (event: any) => {
     event.preventDefault();
     const username: string = event.target[0].value;
     const email: string = event.target[2].value;
     const password: string = event.target[4].value;
-    const user = { username, email, password };
-    const res = await api.post("http://localhost:3001/api/users", { user });
-    console.log(res);
+    const res = await users.registerUser(username, email, password);
+    if (res) {
+      history.push("/");
+    }
   };
 
   return (
