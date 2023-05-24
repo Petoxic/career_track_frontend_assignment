@@ -35,7 +35,8 @@ const PopularTags: React.FC<{}> = () => {
 export default PopularTags;
 
 const ContentContainer = styled("div")`
-  width: 25%;
+  height: fit-content;
+  grid-column-start: 4;
   background-color: ${theme.color.gray.light};
   padding: 10px;
 `;

@@ -53,8 +53,8 @@ const GuestNavigateButtons = (
 
 const UserNavigateButtons: React.FC<{
   logoutHandler: () => void;
-  username: string | undefined;
-  imageUrl: string | undefined;
+  username: string;
+  imageUrl: string;
 }> = ({ logoutHandler, username, imageUrl }) => {
   return (
     <LinksContainer>
@@ -92,7 +92,6 @@ const UserNavigateButtons: React.FC<{
       </Link>
 
       <Avatar
-        alt={username}
         src={imageUrl}
         sx={{ width: "1.2em", height: "1.2em", marginBottom: "3px" }}
       />
@@ -109,8 +108,8 @@ const Header: React.FC<{
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ isLogin, setIsLogin }) => {
-  const [username, setUsername] = useState<string | undefined>(undefined);
-  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  const [username, setUsername] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
 
   const getUsername = async () => {
     const res = await users.getCurrentUser();
@@ -123,8 +122,8 @@ const Header: React.FC<{
   const logoutHandler = () => {
     sessionStorage.removeItem("token");
     setIsLogin(false);
-    setUsername(undefined);
-    setImageUrl(undefined);
+    setUsername("");
+    setImageUrl("");
   };
 
   useEffect(() => {
