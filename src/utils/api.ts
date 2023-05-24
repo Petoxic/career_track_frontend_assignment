@@ -28,6 +28,8 @@ const api = {
     axios.get(url, { params, headers }),
   post: (url: string, params = {}, headers = {}) =>
     axios.post(url, params, headers),
+  delete: (url: string, params = {}, headers = {}) =>
+    axios.delete(url, { params, headers }),
 };
 
 export default api;

@@ -40,7 +40,20 @@ const Feeds: React.FC<{}> = () => {
         <Tab label="Your Feed" id="your-feed" value={true} />
         <Tab label="Global Feed" id="global-feed" value={false} />
       </Tabs>
-      {isYourFeed && <div>This is my feeed</div>}
+      {isYourFeed &&
+        userFeed.map((feed: any) => (
+          <Feed
+            username={feed.author.username}
+            imageUrl={feed.author.image}
+            title={feed.title}
+            description={feed.description}
+            createdAt={feed.createdAt}
+            isFavorited={feed.favorited}
+            favoritesCount={feed.favoritesCount}
+            slug={feed.slug}
+            fetchFeeds={fetchFeeds}
+          />
+        ))}
       {!isYourFeed &&
         globalFeed.map((feed: any) => (
           <Feed
@@ -52,6 +65,7 @@ const Feeds: React.FC<{}> = () => {
             isFavorited={feed.favorited}
             favoritesCount={feed.favoritesCount}
             slug={feed.slug}
+            fetchFeeds={fetchFeeds}
           />
         ))}
     </ContentContainer>

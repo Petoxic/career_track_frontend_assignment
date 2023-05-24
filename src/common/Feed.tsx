@@ -6,6 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import theme from "utils/theme";
 import { Avatar, Link, Typography } from "@mui/material";
 import { create } from "domain";
+import favorites from "api/favorites";
 
 const AutherNameContainer = styled("div")`
   display: flex;
@@ -20,7 +21,10 @@ const ProfileContainer = styled("div")`
   align-items: center;
 `;
 
-const FavoriteContainer = styled("div")<{ primary: string, secondary: string }>`
+const FavoriteContainer = styled("button")<{
+  primary: string,
+  secondary: string
+}>`
   height: 60%;
   display: flex;
   flex-direction: row;
@@ -81,7 +85,18 @@ const AutherProfile: React.FC<{
 const FavoriteButton: React.FC<{
   isFavorited: boolean;
   favoritesCounts: number;
-}> = ({ isFavorited, favoritesCounts }) => {
+  slug: string;
+  fetchFeeds: () => Promise<void>;
+}> = ({ isFavorited, favoritesCounts, slug, fetchFeeds }) => {
+  const favoriteHandler = () => {
+    if (isFavorited) {
+      favorites.unfavoriteArticles(slug);
+    } else {
+      favorites.favoriteArticles(slug);
+    }
+    fetchFeeds();
+  };
+
   const primaryColor: string = isFavorited
     ? theme.color.primary
     : theme.color.white;
@@ -89,7 +104,11 @@ const FavoriteButton: React.FC<{
     ? theme.color.white
     : theme.color.primary;
   return (
-    <FavoriteContainer primary={secondaryColor} secondary={primaryColor}>
+    <FavoriteContainer
+      primary={secondaryColor}
+      secondary={primaryColor}
+      onClick={favoriteHandler}
+    >
       <FavoriteIcon sx={{ color: primaryColor }} />
       <Typography variant="subtitle2" sx={{ color: primaryColor }}>
         {favoritesCounts}
@@ -127,6 +146,7 @@ const Feed: React.FC<{
   isFavorited: boolean;
   favoritesCount: number;
   slug: string;
+  fetchFeeds: () => Promise<void>;
 }> = ({
   username,
   imageUrl,
@@ -136,6 +156,7 @@ const Feed: React.FC<{
   isFavorited,
   favoritesCount,
   slug,
+  fetchFeeds,
 }) => {
   return (
     <ContentContainer>
@@ -144,6 +165,8 @@ const Feed: React.FC<{
         <FavoriteButton
           isFavorited={isFavorited}
           favoritesCounts={favoritesCount}
+          slug={slug}
+          fetchFeeds={fetchFeeds}
         />
       </FeedContainer>
       <ArticleDetails title={title} description={description} />

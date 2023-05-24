@@ -124,6 +124,7 @@ const Header: React.FC<{
     setIsLogin(false);
     setUsername("");
     setImageUrl("");
+    window.location.reload();
   };
 
   useEffect(() => {
