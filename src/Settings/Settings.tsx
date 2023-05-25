@@ -3,18 +3,33 @@ import styled from "@emotion/styled";
 import { Button, OutlinedInput, Typography } from "@mui/material";
 
 import theme from "utils/theme";
+import users from "api/userAndAuth";
+import { useHistory } from "react-router-dom";
 
 const Settings: React.FC<{}> = () => {
+  const history = useHistory();
+
+  const submitHandler = async (event: any) => {
+    event.preventDefault();
+    const username = event.target[0].value;
+    const email = event.target[2].value;
+    const bio = event.target[4].value;
+    const imageUrl = event.target[6].value;
+    const res = await users.updateCurrentUser(username, email, bio, imageUrl);
+    if (res) {
+      window.location.reload();
+    }
+  };
+
   return (
     <ContentContainer>
       <Typography variant="h4">User Settings</Typography>
-      <StyledForm onSubmit={() => console.log("submit!")}>
+      <StyledForm onSubmit={submitHandler}>
         <InputContainer>
-          <StyledInput placeholder="URL of profile picture" />
           <StyledInput placeholder="Your name" />
-          <StyledInput placeholder="Short bio about you" />
           <StyledInput placeholder="Email" />
-          <StyledInput placeholder="Password" />
+          <StyledInput placeholder="Short bio about you" />
+          <StyledInput placeholder="URL of profile picture" />
 
           <StyledButton
             type="submit"
@@ -31,13 +46,13 @@ const Settings: React.FC<{}> = () => {
 
 export default Settings;
 
-const ContentContainer = styled('div')`
+const ContentContainer = styled("div")`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   margin-top: 30px;
-`
+`;
 
 const StyledForm = styled("form")`
   width: 100%;

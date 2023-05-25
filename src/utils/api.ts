@@ -5,6 +5,7 @@ axios.interceptors.request.use(
     const token = sessionStorage.getItem("token");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Content-Type"] = "application/json";
     }
     return config;
   },
@@ -30,6 +31,8 @@ const api = {
     axios.post(url, params, headers),
   delete: (url: string, params = {}, headers = {}) =>
     axios.delete(url, { params, headers }),
+  put: (url: string, params = {}, headers = {}) =>
+    axios.put(url, params, headers),
 };
 
 export default api;

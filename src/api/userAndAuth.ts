@@ -39,10 +39,28 @@ const getCurrentUser = async () => {
   }
 };
 
+const updateCurrentUser = async (
+  username: string,
+  email: string,
+  bio: string,
+  imageUrl: string
+) => {
+  const token = sessionStorage.getItem("token");
+  const user = { email, token, username, bio, image: imageUrl };
+  try {
+    const res = await api.put("http://localhost:3001/api/user", { user });
+    return res.data.user;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 const users = {
   loginUser,
   registerUser,
   getCurrentUser,
+  updateCurrentUser,
 };
 
 export default users;
