@@ -19,6 +19,12 @@ import Register from "AccountManaging/Register";
 function App() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
+  window.onload = () => {
+    if (sessionStorage.getItem("token")) {
+      setIsLogin(true);
+    }
+  };
+
   return (
     <Router>
       <div>

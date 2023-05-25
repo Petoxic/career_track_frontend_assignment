@@ -1,6 +1,5 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { AppBar, Link, Typography } from "@mui/material";
 
 import theme from "utils/theme";
 import HomePageBanner from "./HomePageBanner";
@@ -22,6 +21,10 @@ const ArticleList: React.FC<{}> = () => {
 export default ArticleList;
 
 const ContentContainer = styled("div")`
-  display: flex;
-  flex-direction: row;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+  padding: 2% 5%;
+  column-gap: 10px;
 `;
