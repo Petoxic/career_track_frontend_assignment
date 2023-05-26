@@ -1,15 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Button, OutlinedInput, Typography } from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Typography,
+} from "@mui/material";
 
 import theme from "utils/theme";
+import articles from "api/articles";
+import tags from "api/tags";
 
 const NewArticle: React.FC<{}> = () => {
+  const [articleTag, setArticleTag] = useState<string[]>([]);
+  const [tagsList, setTagsList] = useState([]);
+  const getTagsList = async () => {
+    const res = await tags.getTags();
+    if (res) {
+      setTagsList(res);
+    }
+  };
+
+  useEffect(() => {
+    getTagsList();
+  }, []);
+
+  const createHandler = async (event: any) => {
+    event.preventDefault();
+    const title = event.target[0].value;
+    const description = event.target[2].value;
+    const body = event.target[4].value;
+    const res = await articles.createArticle(
+      title,
+      description,
+      body,
+      articleTag
+    );
+    if (res) {
+      window.location.reload();
+    }
+  };
+
+  const tagsHandler = (event: any) => {
+    const value = event.target.value;
+    setArticleTag(typeof value === "string" ? value.split(",") : value);
+  };
+
   return (
-    // TODO: submit data
     <ContentContainer>
       <Typography variant="h4">Add New Article</Typography>
-      <StyledForm onSubmit={() => console.log("submit!")}>
+      <StyledForm onSubmit={createHandler}>
         <InputContainer>
           <StyledInput placeholder="Article Title" />
           <StyledInput placeholder="What's this article about?" />
@@ -18,7 +59,26 @@ const NewArticle: React.FC<{}> = () => {
             multiline
             rows={6}
           />
-          {/* TODO: add tags */}
+          <Select
+            multiple
+            input={<StyledInput />}
+            value={articleTag}
+            onChange={tagsHandler}
+            renderValue={(list) => {
+              if (list.length === 0) {
+                return <Typography variant="subtitle1">Select Tag</Typography>;
+              }
+              return list.join(",");
+            }}
+          >
+            {tagsList.map((tag: string) => {
+              return (
+                <MenuItem key={tag} value={tag}>
+                  {tag}
+                </MenuItem>
+              );
+            })}
+          </Select>
           <StyledButton
             type="submit"
             variant="contained"
