@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { AppBar, Avatar, Button, Link, Typography } from "@mui/material";
+import { AppBar, Avatar, Button, Link } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useHistory } from "react-router-dom";
+
 import theme from "utils/theme";
 import users from "api/userAndAuth";
-import { useHistory } from "react-router-dom";
 
 const TextWithIcon = styled("div")`
   display: flex;

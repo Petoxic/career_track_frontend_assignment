@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import { Avatar, Tab, Tabs, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
+
 import articles from "api/articles";
 import profile from "api/profile";
-import { Avatar, Tab, Tabs, Typography } from "@mui/material";
 import FollowButton from "common/FollowButton";
 import theme from "utils/theme";
-import { useHistory } from "react-router-dom";
 import Feed from "common/Feed";
 
 const UserProfile: React.FC<{

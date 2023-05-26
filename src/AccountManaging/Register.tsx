@@ -82,7 +82,6 @@ const StyledInput = styled(OutlinedInput)`
   width: 100%;
 `;
 
-// TODO: fix blur border when click
 const StyledButton = styled(Button)`
   width: 100%;
   background-color: ${theme.color.primary};

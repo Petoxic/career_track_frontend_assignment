@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Button, OutlinedInput, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 import theme from "utils/theme";
 import users from "api/userAndAuth";
-import { useHistory } from "react-router-dom";
 
 const Settings: React.FC<{}> = () => {
   const history = useHistory();

@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import dayjs from "dayjs";
+import { Link, Typography } from "@mui/material";
 
 import theme from "utils/theme";
-import { Avatar, Link, Typography } from "@mui/material";
-import favorites from "api/favorites";
 import AutherProfile from "./AutherProfile";
 import FavoriteButton from "./FavoriteButton";
 

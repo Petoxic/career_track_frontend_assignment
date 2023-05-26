@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+
 import articles from "api/articles";
-import profile from "api/profile";
-import React, { useEffect, useState } from "react";
 import TitleBanner from "./TitleBanner";
 
 const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
