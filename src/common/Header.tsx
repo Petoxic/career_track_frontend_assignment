@@ -33,6 +33,15 @@ const LogoutButton = styled(Button)`
 const GuestNavigateButtons = (
   <LinksContainer>
     <Link
+      href="/#"
+      underline="none"
+      variant="subtitle1"
+      sx={{ color: theme.color.black }}
+    >
+      Home
+    </Link>
+
+    <Link
       href="/#/login"
       underline="none"
       variant="subtitle1"
