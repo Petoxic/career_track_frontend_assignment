@@ -56,6 +56,10 @@ const UserNavigateButtons: React.FC<{
   username: string;
   imageUrl: string;
 }> = ({ logoutHandler, username, imageUrl }) => {
+  const currentUserProfileHandler = () => {
+    sessionStorage.setItem("currentUserProfile", username);
+  };
+
   return (
     <LinksContainer>
       <Link
@@ -95,9 +99,19 @@ const UserNavigateButtons: React.FC<{
         src={imageUrl}
         sx={{ width: "1.2em", height: "1.2em", marginBottom: "3px" }}
       />
-      <Typography variant="subtitle1" color={theme.color.gray.medium}>
+      {/* <Typography variant="subtitle1" color={theme.color.gray.medium}>
         {username}
-      </Typography>
+      </Typography> */}
+
+      <Link
+        href={`/#/profile/${username}`}
+        variant="subtitle1"
+        underline="none"
+        sx={{ color: theme.color.gray.medium }}
+        onClick={currentUserProfileHandler}
+      >
+        {username}
+      </Link>
 
       <LogoutButton onClick={logoutHandler}>Log out</LogoutButton>
     </LinksContainer>

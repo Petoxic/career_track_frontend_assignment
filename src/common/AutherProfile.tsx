@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Link, Typography } from "@mui/material";
 
 import theme from "utils/theme";
 
@@ -20,11 +20,24 @@ const ProfileContainer = styled("div")`
 
 const AutherName: React.FC<{ name: string; date: string; colorName: string }> =
   ({ name, date, colorName }) => {
+    const currentUserProfileHandler = () => {
+      sessionStorage.setItem("currentUserProfile", name);
+    };
+
     return (
       <AutherNameContainer>
-        <Typography variant="subtitle1" sx={{ color: colorName }}>
+        {/* <Typography variant="subtitle1" sx={{ color: colorName }}>
           {name}
-        </Typography>
+        </Typography> */}
+        <Link
+          href={`/#/profile/${name}`}
+          variant="subtitle1"
+          underline="none"
+          sx={{ color: colorName }}
+          onClick={currentUserProfileHandler}
+        >
+          {name}
+        </Link>
         <Typography variant="subtitle2" sx={{ color: theme.color.gray.medium }}>
           {date}
         </Typography>
