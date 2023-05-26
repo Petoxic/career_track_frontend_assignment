@@ -79,6 +79,16 @@ const Feeds: React.FC<{
 const ContentContainer = styled("div")`
   grid-column-start: 1;
   grid-column-end: 3;
+  color: ${theme.color.primary};
+
+  & .MuiButtonBase-root.MuiTab-root {
+    color: ${theme.color.primary};
+    border-color: ${theme.color.primary};
+  }
+
+  & .MuiTabs-indicator {
+    background-color: ${theme.color.primary};
+  }
 `;
 
 export default Feeds;
