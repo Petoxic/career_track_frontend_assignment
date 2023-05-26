@@ -5,6 +5,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
 import theme from "utils/theme";
 import users from "api/userAndAuth";
+import { useHistory } from "react-router-dom";
 
 const TextWithIcon = styled("div")`
   display: flex;
@@ -122,6 +123,7 @@ const Header: React.FC<{
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ isLogin, setIsLogin }) => {
+  const history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
 
@@ -138,7 +140,7 @@ const Header: React.FC<{
     setIsLogin(false);
     setUsername("");
     setImageUrl("");
-    window.location.reload();
+    history.push("/");
   };
 
   useEffect(() => {
