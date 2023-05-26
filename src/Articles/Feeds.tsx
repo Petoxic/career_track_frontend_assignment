@@ -6,7 +6,9 @@ import theme from "utils/theme";
 import articles from "api/articles";
 import Feed from "common/Feed";
 
-const Feeds: React.FC<{}> = () => {
+const Feeds: React.FC<{
+  setArticleLink: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ setArticleLink }) => {
   const [isYourFeed, setIsYourFeed] = useState<boolean>(false);
   const [globalFeed, setGlobalFeed] = useState([]);
   const [userFeed, setUserFeed] = useState([]);
@@ -51,7 +53,8 @@ const Feeds: React.FC<{}> = () => {
             isFavorited={feed.favorited}
             favoritesCount={feed.favoritesCount}
             slug={feed.slug}
-            fetchFeeds={fetchFeeds}
+            updateHandler={fetchFeeds}
+            setArticleLink={setArticleLink}
           />
         ))}
       {!isYourFeed &&
@@ -65,7 +68,8 @@ const Feeds: React.FC<{}> = () => {
             isFavorited={feed.favorited}
             favoritesCount={feed.favoritesCount}
             slug={feed.slug}
-            fetchFeeds={fetchFeeds}
+            updateHandler={fetchFeeds}
+            setArticleLink={setArticleLink}
           />
         ))}
     </ContentContainer>

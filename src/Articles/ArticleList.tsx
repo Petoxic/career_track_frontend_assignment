@@ -6,12 +6,12 @@ import HomePageBanner from "./HomePageBanner";
 import PopularTags from "./PopularTags";
 import Feeds from "./Feeds";
 
-const ArticleList: React.FC<{}> = () => {
+const ArticleList: React.FC<{setArticleLink: React.Dispatch<React.SetStateAction<string>>}> = ({setArticleLink}) => {
   return (
     <>
       <HomePageBanner />
       <ContentContainer>
-        <Feeds />
+        <Feeds setArticleLink={setArticleLink} />
         <PopularTags />
       </ContentContainer>
     </>

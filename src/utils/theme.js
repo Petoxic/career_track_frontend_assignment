@@ -7,6 +7,7 @@ const color = {
     light: "#f2f2f2",
     medium: "#808080",
     dark: "#818a91",
+    black: "#333333",
   },
 };
 

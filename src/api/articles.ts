@@ -20,9 +20,20 @@ const getUserFeeds = async () => {
   }
 };
 
+const getArticle = async (slug: string) => {
+  try {
+    const res = await api.get(`http://localhost:3001/api/articles/${slug}`);
+    return res.data.article;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 const articles = {
   getGlobalFeeds,
   getUserFeeds,
+  getArticle,
 };
 
 export default articles;

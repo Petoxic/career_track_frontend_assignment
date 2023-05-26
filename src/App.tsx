@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import Article from "./Article";
+// import Article from "./Article";
+import Article from "Articles/Article";
 import ArticleList from "Articles/ArticleList";
 // import ArticleList from "./ArticleList";
 import Editor from "./Editor";
@@ -18,10 +19,15 @@ import Register from "AccountManaging/Register";
 
 function App() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [articleLink, setArticleLink] = useState<string>("");
 
   window.onload = () => {
     if (sessionStorage.getItem("token")) {
       setIsLogin(true);
+    }
+    const slug: string | null = sessionStorage.getItem("slug");
+    if (slug) {
+      setArticleLink(slug);
     }
   };
 
@@ -47,8 +53,15 @@ function App() {
           />
           <Route path="/register" exact component={Register} />
           <Route path="/settings" exact component={Settings} />
-          <Route path="/:slug" exact component={Article} />
-          <Route path="/" component={ArticleList} />
+          <Route
+            path="/:slug"
+            exact
+            component={() => <Article articleLink={articleLink} />}
+          />
+          <Route
+            path="/"
+            component={() => <ArticleList setArticleLink={setArticleLink} />}
+          />
         </Switch>
         <Footer />
       </div>
