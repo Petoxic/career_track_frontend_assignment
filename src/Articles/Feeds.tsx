@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Tab, Tabs } from "@mui/material";
+import { Tab, Tabs, Typography } from "@mui/material";
 
 import theme from "utils/theme";
 import articles from "api/articles";
@@ -12,6 +12,7 @@ const Feeds: React.FC<{
   const [isYourFeed, setIsYourFeed] = useState<boolean>(false);
   const [globalFeed, setGlobalFeed] = useState([]);
   const [userFeed, setUserFeed] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const FeedChangeHandler = (
     event: React.SyntheticEvent,
@@ -21,6 +22,8 @@ const Feeds: React.FC<{
   };
 
   const fetchFeeds = async () => {
+    setIsLoading(true);
+
     const globalRes = await articles.getGlobalFeeds();
     if (globalRes) {
       setGlobalFeed(globalRes);
@@ -30,6 +33,8 @@ const Feeds: React.FC<{
     if (userRes) {
       setUserFeed(userRes);
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -42,7 +47,9 @@ const Feeds: React.FC<{
         <Tab label="Your Feed" id="your-feed" value={true} />
         <Tab label="Global Feed" id="global-feed" value={false} />
       </Tabs>
-      {isYourFeed &&
+      {isLoading ? (
+        <Typography variant="subtitle1" sx={{color: theme.color.black}}>Loading ...</Typography>
+      ) : isYourFeed ? (
         userFeed.map((feed: any) => (
           <Feed
             username={feed.author.username}
@@ -56,8 +63,8 @@ const Feeds: React.FC<{
             updateHandler={fetchFeeds}
             setArticleLink={setArticleLink}
           />
-        ))}
-      {!isYourFeed &&
+        ))
+      ) : (
         globalFeed.map((feed: any) => (
           <Feed
             username={feed.author.username}
@@ -71,7 +78,8 @@ const Feeds: React.FC<{
             updateHandler={fetchFeeds}
             setArticleLink={setArticleLink}
           />
-        ))}
+        ))
+      )}
     </ContentContainer>
   );
 };

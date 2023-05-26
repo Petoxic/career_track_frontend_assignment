@@ -18,12 +18,14 @@ const UserProfile: React.FC<{
   const [userArticles, setUserArticles] = useState([]);
   const [pathname, setPathname] = useState<any>();
   const [isArticle, setIsArticle] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const tabChangeHandler = (event: React.SyntheticEvent, tabValue: boolean) => {
     setIsArticle(tabValue);
   };
 
   const getUserDatas = async () => {
+    setIsLoading(true);
     const username: string | null =
       sessionStorage.getItem("currentUserProfile");
 
@@ -38,6 +40,7 @@ const UserProfile: React.FC<{
         setUserData(data);
       }
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -49,15 +52,23 @@ const UserProfile: React.FC<{
     <>
       <ProfileBanner>
         <Avatar src={userData.image} sx={{ width: "5rem", height: "5rem" }} />
-        <Typography variant="h4" sx={{ color: theme.color.white }}>
-          {userData.username}
-        </Typography>
-        {userData.username === username ? undefined : (
-          <FollowButton
-            profileName={userData.username}
-            isFollow={userData.following}
-            updateHandler={getUserDatas}
-          />
+        {isLoading ? (
+          <Typography variant="subtitle1" sx={{ color: theme.color.white }}>
+            Loading...
+          </Typography>
+        ) : (
+          <>
+            <Typography variant="h4" sx={{ color: theme.color.white }}>
+              {userData.username}
+            </Typography>
+            {userData.username === username ? undefined : (
+              <FollowButton
+                profileName={userData.username}
+                isFollow={userData.following}
+                updateHandler={getUserDatas}
+              />
+            )}
+          </>
         )}
       </ProfileBanner>
 
@@ -85,7 +96,9 @@ const UserProfile: React.FC<{
             sx={{ color: theme.color.primary }}
           />
         </StyledTab>
-        {isArticle ? (
+        {isLoading ? (
+          <Typography variant="subtitle1">Loading ...</Typography>
+        ) : isArticle ? (
           userArticles.map((article: any) => {
             return (
               <Feed

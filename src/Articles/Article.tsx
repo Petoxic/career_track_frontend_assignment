@@ -10,6 +10,7 @@ const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getArticle = async () => {
+    setIsLoading(true);
     const res = await articles.getArticle(articleLink);
     if (res) {
       setArticleData(res);
@@ -24,7 +25,7 @@ const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
   return (
     <>
       {isLoading ? (
-        <Typography variant="subtitle1">Loading...</Typography>
+        <Typography variant="subtitle1">Loading ...</Typography>
       ) : (
         <ContentContainer>
           <TitleBanner
