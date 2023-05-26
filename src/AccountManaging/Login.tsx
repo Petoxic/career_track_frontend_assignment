@@ -8,7 +8,8 @@ import users from "api/userAndAuth";
 
 const Login: React.FC<{
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setIsLogin }) => {
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ setIsLogin, setUsername }) => {
   const history = useHistory();
 
   const loginHandler = async (event: any) => {
@@ -16,7 +17,8 @@ const Login: React.FC<{
     const email: string = event.target[0].value;
     const password: string = event.target[2].value;
     const res = await users.loginUser(email, password);
-    setIsLogin(res);
+    setIsLogin(res ? true : false);
+    setUsername(res);
     if (res) {
       history.push("/");
     }

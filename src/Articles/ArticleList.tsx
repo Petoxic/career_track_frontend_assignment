@@ -6,7 +6,9 @@ import HomePageBanner from "./HomePageBanner";
 import PopularTags from "./PopularTags";
 import Feeds from "./Feeds";
 
-const ArticleList: React.FC<{setArticleLink: React.Dispatch<React.SetStateAction<string>>}> = ({setArticleLink}) => {
+const ArticleList: React.FC<{
+  setArticleLink: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ setArticleLink }) => {
   return (
     <>
       <HomePageBanner />

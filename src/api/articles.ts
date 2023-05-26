@@ -1,8 +1,8 @@
 import api from "utils/api";
 
-const getGlobalFeeds = async () => {
+const getGlobalFeeds = async (props?: {}) => {
   try {
-    const res = await api.get("http://localhost:3001/api/articles");
+    const res = await api.get("http://localhost:3001/api/articles", {props});
     return res.data.articles;
   } catch (error) {
     console.log(error);

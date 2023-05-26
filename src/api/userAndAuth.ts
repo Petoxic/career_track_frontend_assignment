@@ -7,7 +7,7 @@ const loginUser = async (email: string, password: string) => {
       user,
     });
     sessionStorage.setItem("token", res.data.user.token);
-    return true;
+    return res.data.user.username;
   } catch (error) {
     console.log(error);
     return false;

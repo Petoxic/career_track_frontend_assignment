@@ -16,12 +16,15 @@ import Header from "common/Header";
 import NewArticle from "NewArticle/NewArticle";
 import Login from "AccountManaging/Login";
 import Register from "AccountManaging/Register";
+import articles from "api/articles";
+import UserProfile from "UserProfile/UserProfile";
 
 function App() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [articleLink, setArticleLink] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
 
-  window.onload = () => {
+  window.onload = async () => {
     if (sessionStorage.getItem("token")) {
       setIsLogin(true);
     }
@@ -30,6 +33,13 @@ function App() {
       setArticleLink(slug);
     }
   };
+
+  useEffect(() => {
+    const user: string | null = sessionStorage.getItem("currentUserProfile");
+    if (user) {
+      setUsername(user);
+    }
+  }, []);
 
   return (
     <Router>
@@ -42,10 +52,21 @@ function App() {
           <Route
             path="/login"
             exact
-            component={() => <Login setIsLogin={setIsLogin} />}
+            component={() => (
+              <Login setIsLogin={setIsLogin} setUsername={setUsername} />
+            )}
           />
           <Route path="/logout" exact component={Logout} />
-          <Route path="/profile/:username" exact component={Profile} />
+          <Route
+            path="/profile/:username"
+            exact
+            component={() => (
+              <UserProfile
+                username={username}
+                setArticleLink={setArticleLink}
+              />
+            )}
+          />
           <Route
             path="/profile/:username/favorites"
             exact
