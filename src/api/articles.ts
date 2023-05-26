@@ -1,8 +1,12 @@
 import api from "utils/api";
 
-const getGlobalFeeds = async (props?: {}) => {
+const getGlobalFeeds = async (params?: {}) => {
   try {
-    const res = await api.get("http://localhost:3001/api/articles", { props });
+    const res = await api.get(
+      "http://localhost:3001/api/articles",
+      (params = params)
+    );
+    console.log(res.data.articles);
     return res.data.articles;
   } catch (error) {
     console.log(error);
@@ -13,7 +17,7 @@ const getGlobalFeeds = async (props?: {}) => {
 const getUserFeeds = async () => {
   try {
     const res = await api.get("http://localhost:3001/api/articles/feed");
-    return res.data.article;
+    return res.data.articles;
   } catch (error) {
     console.log(error);
     return false;
