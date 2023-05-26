@@ -20,7 +20,7 @@ Run a frontend application by executing:
 
 After that, the application will be available in http://localhost:3000 <br/>
 
-Run a backend application by executing:
+A Backend application is provided as a Docker image. To run the backend application, executing:
 ```
 docker-compose up
 ```
