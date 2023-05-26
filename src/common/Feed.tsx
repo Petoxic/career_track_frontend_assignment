@@ -1,41 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import theme from "utils/theme";
 import { Avatar, Link, Typography } from "@mui/material";
-import { create } from "domain";
 import favorites from "api/favorites";
-
-const AutherNameContainer = styled("div")`
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-`;
-
-const ProfileContainer = styled("div")`
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: center;
-`;
-
-const FavoriteContainer = styled("button")<{
-  primary: string,
-  secondary: string
-}>`
-  height: 60%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-  background-color: ${(props) => props.primary};
-  border-color: ${(props) => props.secondary};
-  border-style: solid;
-  border-radius: 5px;
-  padding: 5px;
-`;
+import AutherProfile from "./AutherProfile";
+import FavoriteButton from "./FavoriteButton";
 
 const FeedContainer = styled("div")`
   display: flex;
@@ -51,71 +22,6 @@ const ContentContainer = styled("div")`
   border-top: solid ${theme.color.gray.light};
   padding: 10px;
 `;
-
-const AutherName: React.FC<{ name: string; date: string }> = ({
-  name,
-  date,
-}) => {
-  return (
-    <AutherNameContainer>
-      <Typography variant="subtitle1" sx={{ color: theme.color.primary }}>
-        {name}
-      </Typography>
-      <Typography variant="subtitle2" sx={{ color: theme.color.gray.medium }}>
-        {date}
-      </Typography>
-    </AutherNameContainer>
-  );
-};
-
-const AutherProfile: React.FC<{
-  name: string;
-  date: string;
-  imageUrl: string;
-}> = ({ name, date, imageUrl }) => {
-  const formattedDate = dayjs(date).format("D MMMM YYYY");
-  return (
-    <ProfileContainer>
-      <Avatar src={imageUrl} />
-      <AutherName name={name} date={formattedDate} />
-    </ProfileContainer>
-  );
-};
-
-const FavoriteButton: React.FC<{
-  isFavorited: boolean;
-  favoritesCounts: number;
-  slug: string;
-  fetchFeeds: () => Promise<void>;
-}> = ({ isFavorited, favoritesCounts, slug, fetchFeeds }) => {
-  const favoriteHandler = () => {
-    if (isFavorited) {
-      favorites.unfavoriteArticles(slug);
-    } else {
-      favorites.favoriteArticles(slug);
-    }
-    fetchFeeds();
-  };
-
-  const primaryColor: string = isFavorited
-    ? theme.color.primary
-    : theme.color.white;
-  const secondaryColor: string = isFavorited
-    ? theme.color.white
-    : theme.color.primary;
-  return (
-    <FavoriteContainer
-      primary={secondaryColor}
-      secondary={primaryColor}
-      onClick={favoriteHandler}
-    >
-      <FavoriteIcon sx={{ color: primaryColor }} />
-      <Typography variant="subtitle2" sx={{ color: primaryColor }}>
-        {favoritesCounts}
-      </Typography>
-    </FavoriteContainer>
-  );
-};
 
 const ArticleDetails: React.FC<{ title: string; description: string }> = ({
   title,
@@ -146,7 +52,8 @@ const Feed: React.FC<{
   isFavorited: boolean;
   favoritesCount: number;
   slug: string;
-  fetchFeeds: () => Promise<void>;
+  updateHandler: () => Promise<void>;
+  setArticleLink: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
   username,
   imageUrl,
@@ -156,8 +63,14 @@ const Feed: React.FC<{
   isFavorited,
   favoritesCount,
   slug,
-  fetchFeeds,
+  updateHandler,
+  setArticleLink,
 }) => {
+  const linkHandler = (slug: string) => {
+    setArticleLink(slug)
+    sessionStorage.setItem('slug', slug);
+  }
+
   return (
     <ContentContainer>
       <FeedContainer>
@@ -166,7 +79,7 @@ const Feed: React.FC<{
           isFavorited={isFavorited}
           favoritesCounts={favoritesCount}
           slug={slug}
-          fetchFeeds={fetchFeeds}
+          updateHandler={updateHandler}
         />
       </FeedContainer>
       <ArticleDetails title={title} description={description} />
@@ -175,6 +88,7 @@ const Feed: React.FC<{
         underline="none"
         variant="subtitle1"
         sx={{ color: theme.color.gray.medium }}
+        onClick={() => linkHandler(slug)}
       >
         Read more...
       </Link>
