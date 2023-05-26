@@ -56,18 +56,20 @@ const UserProfile: React.FC<{
       </ProfileBanner>
       <Typography>articles</Typography>
       {userArticles.map((article: any) => {
-        <Feed
-          username={article.author.username}
-          imageUrl={article.author.image}
-          title={article.title}
-          description={article.description}
-          createdAt={article.createdAt}
-          isFavorited={article.favorited}
-          favoritesCount={article.favoritesCount}
-          slug={article.slug}
-          updateHandler={getUserDatas}
-          setArticleLink={setArticleLink}
-        />;
+        return (
+          <Feed
+            username={article.author.username}
+            imageUrl={article.author.image}
+            title={article.title}
+            description={article.description}
+            createdAt={article.createdAt}
+            isFavorited={article.favorited}
+            favoritesCount={article.favoritesCount}
+            slug={article.slug}
+            updateHandler={getUserDatas}
+            setArticleLink={setArticleLink}
+          />
+        );
       })}
     </>
   );
