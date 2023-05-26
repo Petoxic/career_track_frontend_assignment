@@ -1,9 +1,10 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+
 import AutherProfile from "common/AutherProfile";
 import FavoriteButton from "common/FavoriteButton";
 import FollowButton from "common/FollowButton";
-import React from "react";
 import theme from "utils/theme";
 
 const TitleBanner: React.FC<{

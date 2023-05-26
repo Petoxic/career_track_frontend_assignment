@@ -1,7 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 
-import theme from "utils/theme";
 import HomePageBanner from "./HomePageBanner";
 import PopularTags from "./PopularTags";
 import Feeds from "./Feeds";

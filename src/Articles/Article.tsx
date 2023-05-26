@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+
 import articles from "api/articles";
-import profile from "api/profile";
-import React, { useEffect, useState } from "react";
 import TitleBanner from "./TitleBanner";
 
 const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
@@ -10,6 +10,7 @@ const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getArticle = async () => {
+    setIsLoading(true);
     const res = await articles.getArticle(articleLink);
     if (res) {
       setArticleData(res);
@@ -24,7 +25,7 @@ const Article: React.FC<{ articleLink: string }> = ({ articleLink }) => {
   return (
     <>
       {isLoading ? (
-        <Typography variant="subtitle1">Loading...</Typography>
+        <Typography variant="subtitle1">Loading ...</Typography>
       ) : (
         <ContentContainer>
           <TitleBanner

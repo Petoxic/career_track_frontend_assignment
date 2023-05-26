@@ -61,14 +61,23 @@ const NewArticle: React.FC<{}> = () => {
           />
           <Select
             multiple
+            displayEmpty
             input={<StyledInput />}
             value={articleTag}
             onChange={tagsHandler}
             renderValue={(list) => {
-              if (list.length === 0) {
-                return <Typography variant="subtitle1">Select Tag</Typography>;
+              if (list.length > 0) {
+                return list.join(",");
+              } else {
+                return (
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ color: theme.color.gray.medium }}
+                  >
+                    Select Tag
+                  </Typography>
+                );
               }
-              return list.join(",");
             }}
           >
             {tagsList.map((tag: string) => {

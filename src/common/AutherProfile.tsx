@@ -26,9 +26,6 @@ const AutherName: React.FC<{ name: string; date: string; colorName: string }> =
 
     return (
       <AutherNameContainer>
-        {/* <Typography variant="subtitle1" sx={{ color: colorName }}>
-          {name}
-        </Typography> */}
         <Link
           href={`/#/profile/${name}`}
           variant="subtitle1"

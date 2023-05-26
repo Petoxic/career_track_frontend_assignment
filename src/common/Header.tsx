@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { AppBar, Avatar, Button, Link, Typography } from "@mui/material";
+import { AppBar, Avatar, Button, Link } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useHistory } from "react-router-dom";
+
 import theme from "utils/theme";
 import users from "api/userAndAuth";
 
@@ -31,6 +33,15 @@ const LogoutButton = styled(Button)`
 
 const GuestNavigateButtons = (
   <LinksContainer>
+    <Link
+      href="/#"
+      underline="none"
+      variant="subtitle1"
+      sx={{ color: theme.color.black }}
+    >
+      Home
+    </Link>
+
     <Link
       href="/#/login"
       underline="none"
@@ -122,6 +133,7 @@ const Header: React.FC<{
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ isLogin, setIsLogin }) => {
+  const history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
 
@@ -138,7 +150,7 @@ const Header: React.FC<{
     setIsLogin(false);
     setUsername("");
     setImageUrl("");
-    window.location.reload();
+    history.push("/");
   };
 
   useEffect(() => {
